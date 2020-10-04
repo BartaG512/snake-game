@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="snake.css">
+    <title>SNAKE by BartaG</title>
+  </head>
+
+  <body>
+    <div id="debug"></div>
+    <div id="menu" class="menu column col-sm- center">
+      <div class="h1 game-name text-center text-uppercase">Snake</div>
+      <a class="btn btn-sm animated-button victoria-two" id="newGame-btn" href="#">New Game</a>
+      <a class="btn btn-sm animated-button victoria-two" id="highScore-btn" href="#">HighScore</a>
+      <a class="btn btn-sm animated-button victoria-two" id="continue-btn" href="#">Continue</a>
+    </div>
+
+    <div class="text-center" id="score"></div>
+    <div id="newgame-menu" class="menu column col-sm- center">
+      <div class="row h2 text-center text-uppercase">Creating new game</div>
+      <form>
+        <div class="row">
+          <div class="form-group col">
+            <label for="PlayerName">Player's name</label>
+            <input type="text" class="form-control" id="inputPlayersName" placeholder="Name" value="Player" minlength="1" maxlength="20">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col">
+            <div class="slidecontainer">
+              <label for="inputDifficulty">Diff (1-10): <span id="valueD"></span></label>
+              <input type="range" min="3" max="10" value="3" class="slider" id="inputDifficulty">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-8">
+            <div class="slidecontainer">
+            	<label for="inputPixelSize">Map Pixel Size (1-60px): <span id="valueU"></span>px </label>
+              <input type="range" min="1" max="60" value="20" class="slider" id="inputPixelSize">
+            </div>
+	        </div>
+
+          <div class="row">
+            <div class="form-group switch-cont col">
+                <div class="switch-title"></div>
+              	<input type="checkbox" id="inputAutoPixelSize" name="switch"/>
+                <label for="inputAutoPixelSize"></label>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col form-group ">
+          	<label for="inputCanvasWidth">Map X Size (2-100): <span id="valueW"></span></label>
+            <input type="range" min="2" max="100" value="40" class="slider" id="inputWidth">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col form-group">
+            <label for="inputCanvasHeight">Map Y Size (2-100): <span id="valueH"></span></label>
+            <input type="range" min="2" max="100" value="25" class="slider" id="inputHeight">
+          </div>
+        </div>
+
+      </form>
+          <div class="row ">
+            <a id="back-btn" class="pull-left  btn btn-sm col-sm-4 animated-button victoria-two" href="#">Back</a>
+            <a id="startgame-btn" class="pull-right btn btn-sm col-sm-4 animated-button victoria-two" href="#">Start Game</a>
+          </div>
+    </div>
+    <div id="endgamemenu" role="tablist" class="menu column col-sm- center">
+      <h1 class="text-center"> GAME OVER </h1>
+      <div class="text-center" id="final-score"></div>
+      <a id="endMainMenu-btn" role="tab" class="pull-left btn btn-sm animated-button victoria-two" href="#">Main Menu</a>
+      <a id="endRestart-btn" role="tab" class="btn btn-sm animated-button victoria-two" href="#">Restart</a>
+      <a class="btn btn-sm animated-button victoria-two" id="endCreateNewGame-btn" href="#">New Game with different settings</a>
+    </div>
+    <div id="highscore-cont" class="menu column col-sm- center">
+      <div class="h1 game-name text-center text-uppercase">HIGHSCORE</div>
+      <div id="size-list" class="text-center text-uppercase">
+        <select id="size-picker" class="selectpicker">
+        </select>
+      </div>
+      <table id="highscore-table" class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>Size</th>
+          </tr>
+          <tbody>
+          </tbody>
+        </thead>
+      </table>
+      <a id="highscoreback-btn" class="btn btn-sm col-sm-4 animated-button victoria-two" href="#">Back</a>
+    </div>
+    <canvas id="canvas" width="300" height="300"></canvas>
+  </body>
+	<script type="text/javascript" src="help.js"></script>
+	<script type="text/javascript" src="snakegame.js"></script>
+	<script type="text/javascript" src="gameui.js"></script>
+	<script type="text/javascript" src="gamepad.js"></script>
+	<script type="text/javascript" src="keyboard.js"></script>
+</html>
+

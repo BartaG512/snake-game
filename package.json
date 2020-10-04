@@ -1,0 +1,25 @@
+{
+  "name": "snakegame",
+  "version": "1.0.0",
+  "description": "Javascript Snake BartaG GUI",
+  "main": "snakegame.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BartaG512/snakegame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BartaG512/snakegame/issues"
+  },
+  "homepage": "https://github.com/BartaG512/snakegame#readme",
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-ndpkg": "^3.7.10",
+    "express": "^4.17.1",
+    "pkg-dir": "^4.2.0"
+  }
+}

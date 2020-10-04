@@ -1,0 +1,326 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+body {
+  font-family: "Operator Mono SSm A", "Operator Mono SSm B", 'Source Code Pro', Menlo, Consolas, Monaco, monospace;
+  background: #222;
+  color: #bfd583;
+}
+
+.jumbotron h1 {
+  color: #353535;
+}
+
+footer {
+  margin-bottom: 0 !important;
+  margin-top: 80px;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+span.icon {
+  margin: 0 5px;
+  color: #d64541;
+}
+
+h2 {
+  color: #bdc3c7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mrng-60-top {
+  margin-top: 60px;
+}
+
+/* Global Button Styles */
+a.animated-button:link,
+a.animated-button:hover {
+  position: relative;
+  display: block;
+  margin: 30px auto 0;
+  padding: 14px 15px;
+  color: #fff;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: 0.08em;
+  border-radius: 0;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+a.animated-button:link::after,
+a.animated-button:visited::after {
+  content: "";
+  position: absolute;
+  height: 0%;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  z-index: -1;
+  transition: all 0.45s ease 0s;
+}
+
+a.animated-button:link:hover,
+a.animated-button:visited:hover {
+  color: #000;
+  text-shadow: none;
+}
+
+a.animated-button:link:hover::after,
+a.animated-button:visited:hover::after {
+  height: 450%;
+}
+
+a.animated-button:link,
+a.animated-button:visited {
+  position: relative;
+  display: block;
+  margin: 30px auto 0;
+  padding: 14px 15px;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 0;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+/* Victoria Buttons */
+
+a.animated-button.victoria-two {
+  border: 2px solid #bfd583;
+}
+
+a.animated-button.victoria-two::after {
+  background: #bfd583;
+  transform: translateX(-50%) translateY(-50%) rotate(25deg);
+}
+
+.menu {
+  padding: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+  .center {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .center {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+canvas {
+  border: 1px solid black;
+  border-radius: 1px;
+  box-shadow: 0 0 50px rgb(0, 0, 0);
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+#score {
+  padding: 10px;
+  font-size: 2em;
+  font-family: "Operator Mono SSm A", "Operator Mono SSm B", 'Source Code Pro', Menlo, Consolas, Monaco, monospace;
+  color: #bfd583;
+}
+
+input:invalid,
+input:placeholder-shown {
+  box-shadow: 0 0 50px 1px red;
+}
+
+#debug {
+  display: block;
+  position: absolute;
+  float: left;
+  padding: 20px;
+  top: 2%;
+  left: 1%;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: rgba(122, 122, 122, 0.2);
+  box-shadow: 0 0 20px rgb(0, 0, 0);
+  font-size: 1em;
+  width: 250px;
+  height: auto;
+}
+
+#debug:empty {
+  display: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#debug .debugvalue {
+  float: right;
+}
+
+#control-feedback {
+  display: block;
+  position: absolute;
+  float: left;
+  top: 50%;
+  left: 3%;
+  border-radius: 20px;
+  font-size: 1em;
+  width: auto;
+  height: auto;
+}
+
+#control-feedback .row .col {
+  padding: 0;
+}
+
+kbd {
+  color: #444;
+  line-height: 2.5em;
+  cursor: pointer;
+  padding: 0.35em 0.9em 0.55em 0.5em;
+  margin: 0.15em;
+  white-space: nowrap;
+  background-color: #e5e5e5;
+  border-top: solid 0.1em #ccc;
+  border-right: solid 0.2em #aaa;
+  border-bottom: solid 0.3em #999;
+  border-left: solid 0.2em #bbb;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#control-feedback kbd.pressed {
+  background-color: #2c3821;
+  box-shadow: 0 0 100px rgb(0, 0, 0);
+  color: white;
+}
+
+.game-name {
+  font-family: "Operator Mono SSm A", "Operator Mono SSm B", 'Source Code Pro', Menlo, Consolas, Monaco, monospace;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+input[type=checkbox] {
+  visibility: hidden;
+}
+
+.switch-cont {
+  width: 120px;
+  height: 40px;
+  background: #333;
+  margin: 20px 60px;
+  border-radius: 50px;
+  position: relative;
+}
+
+.switch-cont::before {
+  content: '';
+  position: absolute;
+  top: 19px;
+  left: 14px;
+  height: 2px;
+  width: 90px;
+  background: #111;
+}
+
+.switch-cont label {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 9px;
+  z-index: 1;
+  left: 12px;
+  background: #ddd;
+}
+
+.switch-cont input[type=checkbox]:checked + label {
+  left: 84px;
+  background: #4caf50;
+}
+
+#endgamemenu {
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 9;
+  width: 30%; /* Could be more or less, depending on screen size */
+  margin: 20% auto; /* 15% from the top and centered */
+  background-color: rgba(10, 10, 10, 1);
+  border-radius: 40px;
+  border: 1px solid #444;
+  box-shadow: 0 0 100px black;
+  transition: all 2s ease-in-out;
+}
