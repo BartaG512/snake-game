@@ -8,16 +8,19 @@
 
 open in browser: http://localhost:3001/
 
-### 
+### Features
 - Score system
-- Increasing speen a
-- Game settings 
-  - different map size 
-  - 
-- Highscore
+- Levels with increasing difficulty
+- Game settings
+  - player name
+  - map size
+- Highscore by map size
 
-### Control keys
 
+### Controls
+Can be played with gamepad or keyboard.
+
+Keys:
 	`W` - up
 	`A` - left
 	`S` - down
