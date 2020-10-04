@@ -1,8 +1,13 @@
+## Demo
+
+[Start the game](https://bartag512.github.io/snake-game/client/)
+
 ### Installation
 
 `npm install`
 
-### Start
+
+### Start start on a local server
 
 `node app.js`
 
@@ -32,3 +37,4 @@ Keys:
 
 Settings: ![Settings](./docs/settings.png)
 Gameplay: ![Gameplay](./docs/screen-shot.png)
+
