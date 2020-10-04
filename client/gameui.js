@@ -233,7 +233,7 @@ class GameUI {
 				this.game.pauseGame();
 				this.gameOver = true;
 				const { name, score } = this.lastGameResult;
-				this.finalScore.innerHTML = name + "'s score: " + name;
+				this.finalScore.innerHTML = `${name}'s score: ${score}'`;
 				break;
 			case 'highScore':
 			// SET tab visibilities show only highscorediv
