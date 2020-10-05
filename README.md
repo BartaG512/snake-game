@@ -1,5 +1,8 @@
 ## Demo
 
+Gameplay: ![Gameplay](./docs/screen-shot.png)
+
+
 [Start the game](https://bartag512.github.io/snake-game/client/)
 
 ### Installation
@@ -36,5 +39,3 @@ Keys:
 ### Preview
 
 Settings: ![Settings](./docs/settings.png)
-Gameplay: ![Gameplay](./docs/screen-shot.png)
-
