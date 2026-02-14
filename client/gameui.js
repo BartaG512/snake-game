@@ -26,11 +26,15 @@ function compareBy(property) {
 	};
 }
 
+function isMobile() {
+	return window.innerWidth <= 768 || ('ontouchstart' in window);
+}
+
 class GameUI {
 	constructor() {
 		this.getElements();
 		this.addEventListenersForButtons();
-		setVisibility({ elements: [this.endGameDiv, this.highscoreDiv], visibility: false });
+		setVisibility({ elements: [this.endGameDiv, this.highscoreDiv, this.gameArea], visibility: false });
 		// Update the current slider value (each time you drag the slider handle)
 		// PIXEL SIZE
 
@@ -45,7 +49,7 @@ class GameUI {
 			this.inputPixelSize.disabled = this.inputAutoPixelSize.checked; // if checked dont let change size input
 
 			if (this.inputAutoPixelSize.checked) {
-				this.inputPixelSize.value = 600 / Math.pow(this.inputWidth.value * this.inputHeight.value, 0.5);
+				this.inputPixelSize.value = this.calculateAutoPixelSize(this.inputWidth.value, this.inputHeight.value);
 				this.outputP.innerHTML = this.inputPixelSize.value;
 				this.inputPixelSize.disabled = true;
 			}
@@ -62,19 +66,11 @@ class GameUI {
 			this.outputP.innerHTML = this.inputPixelSize.value;
 		};
 
-		function calculateSize({ width, height }) {
-			return 600 / Math.pow(width * height, 0.5);
-		}
-
 		this.inputWidth.oninput = () => {
 			this.outputW.innerHTML = this.inputWidth.value;
 
-			//    console.log(this.inputAutoPixelSize.checked);
 			if (this.inputAutoPixelSize.checked) {
-				this.inputPixelSize.value = calculateSize({
-					width: this.inputWidth.value,
-					height: this.inputHeight.value,
-				});
+				this.inputPixelSize.value = this.calculateAutoPixelSize(this.inputWidth.value, this.inputHeight.value);
 				this.outputP.innerHTML = this.inputPixelSize.value;
 			}
 		};
@@ -83,14 +79,16 @@ class GameUI {
 			this.outputH.innerHTML = this.inputHeight.value;
 
 			if (this.inputAutoPixelSize.checked) {
-				//      console.log(600/Math.pow(outputW.innerHTML*outputH.innerHTML,0.5));
-				this.inputPixelSize.value = calculateSize({
-					width: this.inputWidth.value,
-					height: this.inputHeight.value,
-				});
+				this.inputPixelSize.value = this.calculateAutoPixelSize(this.inputWidth.value, this.inputHeight.value);
 				this.outputP.innerHTML = this.inputPixelSize.value;
 			}
 		};
+	}
+
+	calculateAutoPixelSize(width, height) {
+		// On mobile, use viewport width instead of hardcoded 600
+		const maxSize = isMobile() ? Math.min(window.innerWidth - 20, 600) : 600;
+		return Math.floor(maxSize / Math.pow(width * height, 0.5));
 	}
 
 	addEventListenersForButtons() {
@@ -126,6 +124,21 @@ class GameUI {
 		}
 
 		document.addEventListener('keypress', this.interfaceKeyDown.bind(this));
+
+		// Mobile pause button
+		this.pauseBtn.addEventListener('click', () => {
+			if (this.currentState === 'showBoard' && typeof this.game !== 'undefined') {
+				this.showWindow('mainMenuScreen');
+			}
+		});
+
+		// Also handle touch on pause
+		this.pauseBtn.addEventListener('touchend', (e) => {
+			e.preventDefault();
+			if (this.currentState === 'showBoard' && typeof this.game !== 'undefined') {
+				this.showWindow('mainMenuScreen');
+			}
+		});
 	}
 
 	getElements() {
@@ -157,6 +170,8 @@ class GameUI {
 		this.debugDiv = document.getElementById('debug');
 		this.canvas = document.querySelector('canvas');
 		this.cxt = this.canvas.getContext('2d');
+		this.gameArea = document.getElementById('game-area');
+		this.pauseBtn = document.getElementById('pause-btn');
 
 		//  HIGHSCORE
 		this.highscore = [];
@@ -204,7 +219,7 @@ class GameUI {
 					this.game.pauseGame();
 				}
 				setVisibility({ elements: [this.menuMain], visibility: true });
-				setVisibility({ elements: [this.canvas, this.newGameMenu, this.endGameDiv, this.debugDiv, this.highscoreDiv], visibility: false });
+				setVisibility({ elements: [this.gameArea, this.newGameMenu, this.endGameDiv, this.debugDiv, this.highscoreDiv], visibility: false });
 
 				if (this.game !== undefined && !this.gameOver) {
 					setVisibility({ elements: [this.scoreDiv, this.continueBtn], visibility: true });
@@ -213,7 +228,7 @@ class GameUI {
 				}
 				break;
 			case 'newGameCreatingMenu':
-				setVisibility({ elements: [this.menuMain, this.canvas, this.endGameDiv], visibility: false });
+				setVisibility({ elements: [this.menuMain, this.gameArea, this.endGameDiv], visibility: false });
 				setVisibility({ elements: [this.newGameMenu], visibility: true });
 
 				if (this.game !== undefined) {
@@ -226,7 +241,16 @@ class GameUI {
 					this.game.continueGame();
 				}
 				setVisibility({ elements: [this.menuMain, this.newGameMenu, this.endGameDiv], visibility: false });
-				setVisibility({ elements: [this.canvas, this.debugDiv], visibility: true });
+				setVisibility({ elements: [this.debugDiv], visibility: true });
+				// Show game area with flex on mobile, block on desktop
+				if (isMobile()) {
+					this.gameArea.style.display = 'flex';
+				} else {
+					this.gameArea.style.display = 'block';
+				}
+				this.gameArea.visible = true;
+				this.canvas.style.display = 'block';
+				this.canvas.visible = true;
 				break;
 			case 'gameOver':
 				setVisibility({ elements: [this.endGameDiv], visibility: true });
@@ -238,7 +262,7 @@ class GameUI {
 			case 'highScore':
 			// SET tab visibilities show only highscorediv
 				setVisibility({
-					elements: [this.menuMain, this.canvas, this.endGameDiv, this.debugDiv],
+					elements: [this.menuMain, this.gameArea, this.endGameDiv, this.debugDiv],
 					visibility: false,
 				});
 				setVisibility({
@@ -320,6 +344,15 @@ class GameUI {
 		if (this.validateInputs(newGameInputs)) {
 			this.saveGameData();
 			this.gameOver = false;
+
+			// On mobile, ensure auto pixel size uses viewport width
+			if (isMobile() && this.gameStartData.autoPixelSize) {
+				this.gameStartData.mapUnit = this.calculateAutoPixelSize(
+					this.gameStartData.mapWidth,
+					this.gameStartData.mapHeight
+				);
+			}
+
 			// START GAME
 			this.game = new Game({
 				gameStartData: this.gameStartData,
