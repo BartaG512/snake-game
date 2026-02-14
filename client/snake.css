@@ -7,6 +7,11 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  touch-action: manipulation;
 }
 
 body {
@@ -84,6 +89,25 @@ h2 {
   text-shadow: 0 0 10px #00ccff88;
 }
 
+.controls-hint {
+  color: #00ccff;
+  font-family: 'Rajdhani', monospace;
+  font-size: 0.9em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px #00ccff44;
+}
+
+/* Show/hide hints based on touch capability */
+.mobile-hint { display: none; }
+
+@media (pointer: coarse) {
+  .controls-hint:not(.mobile-hint) { display: none; }
+  .mobile-hint { display: block; }
+}
+
 /* ============================================
    MENU & LAYOUT
    ============================================ */
@@ -96,6 +120,7 @@ h2 {
 @media only screen and (max-width: 768px) {
   .center { width: 95%; margin: auto; }
   .game-name { font-size: 2.5em !important; }
+  .menu { padding: 20px 15px; }
 }
 
 @media only screen and (min-width: 768px) {
@@ -171,8 +196,17 @@ a.animated-button.victoria-two::after {
 }
 
 /* ============================================
-   CANVAS
+   GAME AREA & CANVAS
    ============================================ */
+
+#game-area {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
 canvas {
   border: 2px solid #00ff8844;
@@ -202,6 +236,130 @@ canvas.shake {
   100% { transform: translate(0, 0); }
 }
 
+/* Mobile canvas: flow layout instead of absolute */
+@media only screen and (max-width: 768px) {
+  #game-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 10px;
+  }
+
+  canvas {
+    position: static;
+    margin: 0 auto;
+    max-width: calc(100vw - 16px);
+  }
+}
+
+/* ============================================
+   MOBILE CONTROLS - D-PAD & PAUSE
+   ============================================ */
+
+#mobile-controls {
+  display: none;
+}
+
+@media only screen and (max-width: 768px), (pointer: coarse) {
+  #mobile-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0 20px;
+    gap: 8px;
+  }
+}
+
+.mobile-pause-btn {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #00ccff;
+  background: transparent;
+  border: 2px solid #00ccff44;
+  border-radius: 4px;
+  padding: 8px 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.mobile-pause-btn:active {
+  background: #00ccff22;
+  border-color: #00ccff;
+  box-shadow: 0 0 15px #00ccff44;
+}
+
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dpad-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.dpad-btn {
+  width: 64px;
+  height: 64px;
+  font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 255, 136, 0.06);
+  border: 2px solid #00ff8844;
+  border-radius: 10px;
+  color: #00ff88;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
+  padding: 0;
+}
+
+.dpad-btn:active,
+.dpad-btn.active {
+  background: rgba(0, 255, 136, 0.2);
+  border-color: #00ff88;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  color: #ffffff;
+  transform: scale(0.95);
+}
+
+.dpad-center {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background: rgba(0, 255, 136, 0.02);
+  border: 1px solid #00ff8811;
+}
+
+/* Larger D-pad on bigger phones */
+@media only screen and (min-width: 400px) and (max-width: 768px) {
+  .dpad-btn {
+    width: 72px;
+    height: 72px;
+    font-size: 1.8em;
+  }
+  .dpad-center {
+    width: 72px;
+    height: 72px;
+  }
+}
+
 /* ============================================
    SCORE DISPLAY
    ============================================ */
@@ -214,6 +372,13 @@ canvas.shake {
   color: #00ff88;
   text-shadow: 0 0 10px #00ff8866;
   letter-spacing: 0.05em;
+}
+
+@media only screen and (max-width: 768px) {
+  #score {
+    font-size: 1.2em;
+    padding: 5px;
+  }
 }
 
 /* ============================================
@@ -237,6 +402,7 @@ canvas.shake {
   color: #00ff88aa;
   width: 250px;
   height: auto;
+  z-index: 5;
 }
 
 #debug:empty {
@@ -249,6 +415,13 @@ canvas.shake {
 #debug .debugvalue {
   float: right;
   color: #00ccff;
+}
+
+/* Hide debug panel on mobile */
+@media only screen and (max-width: 768px) {
+  #debug {
+    display: none !important;
+  }
 }
 
 /* ============================================
@@ -274,6 +447,20 @@ canvas.shake {
     inset 0 0 40px rgba(0, 0, 0, 0.5);
   transition: all 0.5s ease-in-out;
   animation: gameOverAppear 0.5s ease-out;
+}
+
+@media only screen and (max-width: 768px) {
+  #endgamemenu {
+    width: 85%;
+    margin: 25% auto;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+  }
+
+  #endgamemenu h1 {
+    font-size: 1.5em;
+  }
 }
 
 @keyframes gameOverAppear {
@@ -426,8 +613,8 @@ input:placeholder-shown {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   background: #00ff88;
   cursor: pointer;
   border-radius: 50%;
@@ -440,8 +627,8 @@ input:placeholder-shown {
 }
 
 .slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   background: #00ff88;
   cursor: pointer;
   border-radius: 50%;
@@ -550,6 +737,12 @@ kbd {
   color: #00ccff;
   text-shadow: 0 0 10px #00ccff44;
   font-size: 1.3em;
+}
+
+@media only screen and (max-width: 768px) {
+  #newgame-menu .h2 {
+    font-size: 1em;
+  }
 }
 
 /* ============================================

@@ -205,6 +205,14 @@ function Game({ gameStartData, canvas, snakeLength, controlKeys, debugWindow, on
 			this.onKeyChange(directionCommand);
 		},
 	});
+
+	// ADD touch monitoring (swipe + D-pad)
+	this.touchCtrl = new TouchController({
+		canvas: this.canvas,
+		onDirectionChange: (directionCommand) => {
+			this.onKeyChange(directionCommand);
+		},
+	});
 }
 
 Game.prototype.onKeyChange = function(directionCommand) {

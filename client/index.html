@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="snake.css">
     <title>NEON SNAKE</title>
   </head>
@@ -11,7 +13,8 @@
     <div id="debug"></div>
     <div id="menu" class="menu column col-sm- center">
       <div class="h1 game-name text-center text-uppercase">Snake</div>
-      <div class="text-center" style="color: #00ccff; font-family: 'Rajdhani', monospace; font-size: 0.9em; letter-spacing: 0.3em; text-transform: uppercase; margin-top: -10px; margin-bottom: 20px; text-shadow: 0 0 8px #00ccff44;">WASD or Arrow Keys to move &bull; Space to pause</div>
+      <div class="controls-hint text-center">WASD or Arrow Keys to move &bull; Space to pause</div>
+      <div class="controls-hint text-center mobile-hint">Swipe or use D-pad to move</div>
       <a class="btn btn-sm animated-button victoria-two" id="newGame-btn" href="#">New Game</a>
       <a class="btn btn-sm animated-button victoria-two" id="highScore-btn" href="#">HighScore</a>
       <a class="btn btn-sm animated-button victoria-two" id="continue-btn" href="#">Continue</a>
@@ -80,7 +83,7 @@
       <div class="text-center" id="final-score"></div>
       <a id="endMainMenu-btn" role="tab" class="pull-left btn btn-sm animated-button victoria-two" href="#">Main Menu</a>
       <a id="endRestart-btn" role="tab" class="btn btn-sm animated-button victoria-two" href="#">Restart</a>
-      <a class="btn btn-sm animated-button victoria-two" id="endCreateNewGame-btn" href="#">New Game with different settings</a>
+      <a class="btn btn-sm animated-button victoria-two" id="endCreateNewGame-btn" href="#">New Game</a>
     </div>
     <div id="highscore-cont" class="menu column col-sm- center">
       <div class="h1 game-name text-center text-uppercase">HIGHSCORE</div>
@@ -102,10 +105,31 @@
       </table>
       <a id="highscoreback-btn" class="btn btn-sm col-sm-4 animated-button victoria-two" href="#">Back</a>
     </div>
-    <canvas id="canvas" width="300" height="300"></canvas>
+
+    <div id="game-area">
+      <canvas id="canvas" width="300" height="300"></canvas>
+
+      <div id="mobile-controls">
+        <button id="pause-btn" class="mobile-pause-btn" type="button">PAUSE</button>
+        <div class="dpad">
+          <div class="dpad-row">
+            <button class="dpad-btn" data-dir="UP" type="button">&#9650;</button>
+          </div>
+          <div class="dpad-row">
+            <button class="dpad-btn" data-dir="LEFT" type="button">&#9664;</button>
+            <div class="dpad-center"></div>
+            <button class="dpad-btn" data-dir="RIGHT" type="button">&#9654;</button>
+          </div>
+          <div class="dpad-row">
+            <button class="dpad-btn" data-dir="DOWN" type="button">&#9660;</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 	<script type="text/javascript" src="help.js"></script>
 	<script type="text/javascript" src="snakegame.js"></script>
+	<script type="text/javascript" src="touch.js"></script>
 	<script type="text/javascript" src="gameui.js"></script>
 	<script type="text/javascript" src="gamepad.js"></script>
 	<script type="text/javascript" src="keyboard.js"></script>
