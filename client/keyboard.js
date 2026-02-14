@@ -21,38 +21,48 @@ class KeyboardController {
 
 	onKeyUp(event) {
 		switch (event.keyCode) {
-			case this.controlKeys[1]:
+			case this.controlKeys[1]: // A
+			case 37: // Arrow Left
 				this.directionCommand.removeOnce('LEFT');
 				break;
-			case this.controlKeys[0]:
+			case this.controlKeys[0]: // W
+			case 38: // Arrow Up
 				this.directionCommand.removeOnce('UP');
 				break;
-			case this.controlKeys[3]:
+			case this.controlKeys[3]: // D
+			case 39: // Arrow Right
 				this.directionCommand.removeOnce('RIGHT');
 				break;
-			case this.controlKeys[2]:
+			case this.controlKeys[2]: // S
+			case 40: // Arrow Down
 				this.directionCommand.removeOnce('DOWN');
 				break;
 			default:
 				break;
 		}
 		this.onKeyChange(this.directionCommand);
-
-		// Check if snake can move this direction
 	}
 
 	onKeyDown(event) {
 		switch (event.keyCode) {
-			case this.controlKeys[0]:
+			case this.controlKeys[0]: // W
+			case 38: // Arrow Up
+				event.preventDefault();
 				this.directionCommand.insertOnce('UP');
 				break;
-			case this.controlKeys[1]:
+			case this.controlKeys[1]: // A
+			case 37: // Arrow Left
+				event.preventDefault();
 				this.directionCommand.insertOnce('LEFT');
 				break;
-			case this.controlKeys[2]:
+			case this.controlKeys[2]: // S
+			case 40: // Arrow Down
+				event.preventDefault();
 				this.directionCommand.insertOnce('DOWN');
 				break;
-			case this.controlKeys[3]:
+			case this.controlKeys[3]: // D
+			case 39: // Arrow Right
+				event.preventDefault();
 				this.directionCommand.insertOnce('RIGHT');
 				break;
 			default:
@@ -61,4 +71,3 @@ class KeyboardController {
 		this.onKeyChange(this.directionCommand);
 	}
 }
-
